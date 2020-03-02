@@ -23,6 +23,7 @@ public class NewTest {
 	@AfterTest
 	public void afterTest() {
 		driver.quit();
+		System.out.println("hello world")
 	}
 	
 	@Test
