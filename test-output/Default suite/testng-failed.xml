@@ -5,7 +5,7 @@
     <classes>
       <class name="NewTest">
         <methods>
-          <include name="canClickButton"/>
+          <include name="canLogIn"/>
           <include name="beforeTest"/>
           <include name="afterTest"/>
         </methods>

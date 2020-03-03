@@ -11,34 +11,62 @@ public class NewTest {
 	
 	@BeforeTest
 	public void beforeTest() {
+		driver = getWebDriver();
+	}
+	
+	private WebDriver getWebDriver() {
 		System.setProperty("webdriver.chrome.driver", "/Users/ugp/Documents/chromedriver");
 		
-		driver = new ChromeDriver();
-		String url = "http://google.com";
+		WebDriver driver = new ChromeDriver();
+		String url = "http://the-internet.herokuapp.com/login";
 		driver.navigate().to(url);
 		
+		return driver;
+	}
+	
+	@Test 
+	public void canLogIn() {
+		//arrange
+		String userName = new String("tomsmith");
+		String password = new String("SuperSecretPassword!");
 		
+		//act
+		WebElement userNameTextBox = driver.findElement(By.id("username"));
+		WebElement passwordTextBox = driver.findElement(By.id("password"));
+		WebElement submitButton = driver.findElement(By.className("radius"));
+		// driver.findElement(By.tagName("button"))
+		
+		userNameTextBox.sendKeys(userName);
+		passwordTextBox.sendKeys(password);
+		submitButton.submit();
+		
+		//assert
+		WebElement verificationLoggedIn = driver.findElement(By.className("icon-signout"));
+		String expectedText = new String("Logout");
+//		boolean verification = verificationLoggedIn.getText() == expectedText;
+		
+		Assert.assertEquals(verificationLoggedIn.getText(), expectedText, "Cannot Login");
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		driver.quit();
+//		driver.quit();
 		System.out.println("hello world");
 	}
 	
-	@Test
-	public void launchChromeDriver() {
-		Assert.assertEquals(driver.getTitle(), "Google", "An incorrect page was loaded.");
-	}
+//	@Test
+//	public void launchChromeDriver() {
+//		Assert.assertEquals(driver.getTitle(), "Google", "An incorrect page was loaded.");
+//	}
 	
-	@Test
-	public void canClickButton() {
-		
-		WebElement element = driver.findElement(By.id("gbqfbb"));
-		
-		element.click();
-		
-	}
+//	@Test
+//	public void canClickButton() {
+//		
+//		WebElement element = driver.findElement(By.id("gbqfbb"));
+//		
+//		element.click();
+//		
+//	}
 	
 	private WebDriver driver;
 }
